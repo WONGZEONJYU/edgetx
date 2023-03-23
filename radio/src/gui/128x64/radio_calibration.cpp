@@ -205,7 +205,7 @@ void menuCommonCalib(event_t event)
 void menuRadioCalibration(event_t event)
 {
   check_submenu_simple(event, 0);
-  title(STR_MENUCALIBRATION);
+//   title(STR_MENUCALIBRATION);
   menuCommonCalib(READ_ONLY() ? 0 : event);
   if (menuEvent) {
     menuCalibrationState = CALIB_START;
