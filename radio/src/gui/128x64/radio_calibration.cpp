@@ -27,51 +27,51 @@
 
 void menuCommonCalib(event_t event)
 {
-  for (uint8_t i=0; i<NUM_STICKS+NUM_POTS+NUM_SLIDERS; i++) { // get low and high values for sticks, pots and sliders
-    int16_t vt = anaIn(i);
-    reusableBuffer.calib.loVals[i] = min(vt, reusableBuffer.calib.loVals[i]);
-    reusableBuffer.calib.hiVals[i] = max(vt, reusableBuffer.calib.hiVals[i]);
-    if (i >= POT1 && i <= POT_LAST) {
-      if (IS_POT_WITHOUT_DETENT(i)) {
-        reusableBuffer.calib.midVals[i] = (reusableBuffer.calib.hiVals[i] + reusableBuffer.calib.loVals[i]) / 2;
-      }
-#if defined(PCBTARANIS)
-      uint8_t idx = i - POT1;
-      int count = reusableBuffer.calib.xpotsCalib[idx].stepsCount;
-      if (IS_POT_MULTIPOS(i) && count <= XPOTS_MULTIPOS_COUNT) {
-        // use raw analog value for multipos calibraton, anaIn() already has multipos decoded value
-        vt = getAnalogValue(i) >> 1;
-        if (reusableBuffer.calib.xpotsCalib[idx].lastCount == 0 ||
-                vt < reusableBuffer.calib.xpotsCalib[idx].lastPosition - XPOT_DELTA ||
-                vt > reusableBuffer.calib.xpotsCalib[idx].lastPosition + XPOT_DELTA) {
-          reusableBuffer.calib.xpotsCalib[idx].lastPosition = vt;
-          reusableBuffer.calib.xpotsCalib[idx].lastCount = 1;
-        }
-        else {
-          if (reusableBuffer.calib.xpotsCalib[idx].lastCount < 255)
-              reusableBuffer.calib.xpotsCalib[idx].lastCount++;
-        }
-        if (reusableBuffer.calib.xpotsCalib[idx].lastCount == XPOT_DELAY) {
-          int16_t position = reusableBuffer.calib.xpotsCalib[idx].lastPosition;
-          bool found = false;
-          for (int j=0; j<count; j++) {
-            int16_t step = reusableBuffer.calib.xpotsCalib[idx].steps[j];
-            if (position >= step-XPOT_DELTA && position <= step+XPOT_DELTA) {
-              found = true;
-              break;
-            }
-          }
-          if (!found) {
-            if (count < XPOTS_MULTIPOS_COUNT) {
-              reusableBuffer.calib.xpotsCalib[idx].steps[count] = position;
-            }
-            reusableBuffer.calib.xpotsCalib[idx].stepsCount += 1;
-          }
-        }
-      }
-#endif
-    }
-  }
+//   for (uint8_t i=0; i<NUM_STICKS+NUM_POTS+NUM_SLIDERS; i++) { // get low and high values for sticks, pots and sliders
+//     int16_t vt = anaIn(i);
+//     reusableBuffer.calib.loVals[i] = min(vt, reusableBuffer.calib.loVals[i]);
+//     reusableBuffer.calib.hiVals[i] = max(vt, reusableBuffer.calib.hiVals[i]);
+//     if (i >= POT1 && i <= POT_LAST) {
+//       if (IS_POT_WITHOUT_DETENT(i)) {
+//         reusableBuffer.calib.midVals[i] = (reusableBuffer.calib.hiVals[i] + reusableBuffer.calib.loVals[i]) / 2;
+//       }
+// #if defined(PCBTARANIS)
+//       uint8_t idx = i - POT1;
+//       int count = reusableBuffer.calib.xpotsCalib[idx].stepsCount;
+//       if (IS_POT_MULTIPOS(i) && count <= XPOTS_MULTIPOS_COUNT) {
+//         // use raw analog value for multipos calibraton, anaIn() already has multipos decoded value
+//         vt = getAnalogValue(i) >> 1;
+//         if (reusableBuffer.calib.xpotsCalib[idx].lastCount == 0 ||
+//                 vt < reusableBuffer.calib.xpotsCalib[idx].lastPosition - XPOT_DELTA ||
+//                 vt > reusableBuffer.calib.xpotsCalib[idx].lastPosition + XPOT_DELTA) {
+//           reusableBuffer.calib.xpotsCalib[idx].lastPosition = vt;
+//           reusableBuffer.calib.xpotsCalib[idx].lastCount = 1;
+//         }
+//         else {
+//           if (reusableBuffer.calib.xpotsCalib[idx].lastCount < 255)
+//               reusableBuffer.calib.xpotsCalib[idx].lastCount++;
+//         }
+//         if (reusableBuffer.calib.xpotsCalib[idx].lastCount == XPOT_DELAY) {
+//           int16_t position = reusableBuffer.calib.xpotsCalib[idx].lastPosition;
+//           bool found = false;
+//           for (int j=0; j<count; j++) {
+//             int16_t step = reusableBuffer.calib.xpotsCalib[idx].steps[j];
+//             if (position >= step-XPOT_DELTA && position <= step+XPOT_DELTA) {
+//               found = true;
+//               break;
+//             }
+//           }
+//           if (!found) {
+//             if (count < XPOTS_MULTIPOS_COUNT) {
+//               reusableBuffer.calib.xpotsCalib[idx].steps[count] = position;
+//             }
+//             reusableBuffer.calib.xpotsCalib[idx].stepsCount += 1;
+//           }
+//         }
+//       }
+// #endif
+//     }
+//   }
 
   menuCalibrationState = reusableBuffer.calib.state; // make sure we don't scroll while calibrating
 
