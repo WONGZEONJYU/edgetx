@@ -27,15 +27,15 @@
 
 void menuCommonCalib(event_t event)
 {
-//   for (uint8_t i=0; i<NUM_STICKS+NUM_POTS+NUM_SLIDERS; i++) { // get low and high values for sticks, pots and sliders
-//     int16_t vt = anaIn(i);
-//     reusableBuffer.calib.loVals[i] = min(vt, reusableBuffer.calib.loVals[i]);
-//     reusableBuffer.calib.hiVals[i] = max(vt, reusableBuffer.calib.hiVals[i]);
-//     if (i >= POT1 && i <= POT_LAST) {
-//       if (IS_POT_WITHOUT_DETENT(i)) {
-//         reusableBuffer.calib.midVals[i] = (reusableBuffer.calib.hiVals[i] + reusableBuffer.calib.loVals[i]) / 2;
-//       }
-// #if defined(PCBTARANIS)
+  for (uint8_t i=0; i<NUM_STICKS+NUM_POTS+NUM_SLIDERS; i++) { // get low and high values for sticks, pots and sliders
+    int16_t vt = anaIn(i);
+    reusableBuffer.calib.loVals[i] = min(vt, reusableBuffer.calib.loVals[i]);
+    reusableBuffer.calib.hiVals[i] = max(vt, reusableBuffer.calib.hiVals[i]);
+    if (i >= POT1 && i <= POT_LAST) {
+      if (IS_POT_WITHOUT_DETENT(i)) {
+        reusableBuffer.calib.midVals[i] = (reusableBuffer.calib.hiVals[i] + reusableBuffer.calib.loVals[i]) / 2;
+      }
+#if defined(PCBTARANIS)
 //       uint8_t idx = i - POT1;
 //       int count = reusableBuffer.calib.xpotsCalib[idx].stepsCount;
 //       if (IS_POT_MULTIPOS(i) && count <= XPOTS_MULTIPOS_COUNT) {
@@ -69,9 +69,9 @@ void menuCommonCalib(event_t event)
 //           }
 //         }
 //       }
-// #endif
-//     }
-//   }
+#endif
+    }
+  }
 
   menuCalibrationState = reusableBuffer.calib.state; // make sure we don't scroll while calibrating
 
