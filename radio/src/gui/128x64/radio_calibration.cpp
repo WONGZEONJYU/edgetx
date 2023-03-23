@@ -31,7 +31,7 @@ void menuCommonCalib(event_t event)
     int16_t vt = anaIn(i);
     reusableBuffer.calib.loVals[i] = min(vt, reusableBuffer.calib.loVals[i]);
     reusableBuffer.calib.hiVals[i] = max(vt, reusableBuffer.calib.hiVals[i]);
-         lcdDrawNumber(127,0,123456);
+         lcdDrawNumber(63,10,123);
 //         lcdDrawNumber(127,8,reusableBuffer.calib.midVals[i]);
 //         lcdDrawNumber(127,16,reusableBuffer.calib.midVals[i]);
 //         lcdDrawNumber(127,32,reusableBuffer.calib.midVals[i]);
