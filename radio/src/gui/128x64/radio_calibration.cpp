@@ -29,10 +29,10 @@ extern int16_t channelOutputs[];
 
 void menuCommonCalib(event_t event)
 {
-    lcdDrawNumber(0,0,channelOutputs[0]);
-    lcdDrawNumber(63,0,channelOutputs[1]);
-    lcdDrawNumber(0,8,channelOutputs[2]);
-    lcdDrawNumber(63,8,channelOutputs[3]);
+    lcdDrawNumber(0,0,anaIn(0));
+    lcdDrawNumber(63,0,anaIn(1));
+    lcdDrawNumber(0,8,anaIn(2));
+    lcdDrawNumber(63,8,anaIn(3));
 
   for (uint8_t i=0; i<NUM_STICKS /*+NUM_POTS+NUM_SLIDERS*/ ; i++) { // get low and high values for sticks, pots and sliders
     int16_t vt = anaIn(i);
