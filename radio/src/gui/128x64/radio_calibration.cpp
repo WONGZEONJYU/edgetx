@@ -29,16 +29,6 @@ extern int16_t channelOutputs[];
 
 void menuCommonCalib(event_t event)
 {
-    lcdDrawNumber(0,0,anaIn(0));
-    lcdDrawNumber(32,0,anaIn(1));
-    lcdDrawNumber(0,8,anaIn(2));
-    lcdDrawNumber(32,8,anaIn(3));
-
-    lcdDrawNumber(63,0,getAnalogValue(0));
-    lcdDrawNumber(95,0,getAnalogValue(1));
-    lcdDrawNumber(63,8,getAnalogValue(2));
-    lcdDrawNumber(95,8,getAnalogValue(3));
-
   for (uint8_t i=0; i<NUM_STICKS /*+NUM_POTS+NUM_SLIDERS*/ ; i++) { // get low and high values for sticks, pots and sliders
     int16_t vt = anaIn(i);
     reusableBuffer.calib.loVals[i] = min(vt, reusableBuffer.calib.loVals[i]);
@@ -129,6 +119,17 @@ void menuCommonCalib(event_t event)
  #endif
         {
           reusableBuffer.calib.midVals[i] = getAnalogValue(i) >> 1;
+            
+                lcdDrawNumber(0,0,anaIn(0));
+    lcdDrawNumber(32,0,anaIn(1));
+    lcdDrawNumber(0,8,anaIn(2));
+    lcdDrawNumber(32,8,anaIn(3));
+
+    lcdDrawNumber(63,0,getAnalogValue(0));
+    lcdDrawNumber(95,0,getAnalogValue(1));
+    lcdDrawNumber(63,8,getAnalogValue(2));
+    lcdDrawNumber(95,8,getAnalogValue(3));
+            
         }
         if (i<NUM_XPOTS) {
           reusableBuffer.calib.xpotsCalib[i].stepsCount = 0;
